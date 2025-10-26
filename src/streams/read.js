@@ -10,7 +10,11 @@ const read = async () => {
     path.resolve(__dirname, "files/fileToRead.txt")
   );
 
-  readStream.pipe(process.stdout);
+  readStream.pipe(process.stdout, { end: false });
+
+  readStream.on("end", () => {
+    console.log();
+  });
 };
 
 await read();
